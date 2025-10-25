@@ -208,3 +208,5 @@ CREATE POLICY "Coordinators can delete own schedules"
   ON schedules FOR DELETE
   TO authenticated
   USING (coordinator_id = auth.uid());
+
+ALTER TABLE professors ADD COLUMN avatar_url TEXT;
