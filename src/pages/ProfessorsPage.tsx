@@ -263,5 +263,5 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
                 </div>
               )}
             </div>
-          ))}
+          ))} 
         </div>
