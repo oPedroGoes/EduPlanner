@@ -1,6 +1,6 @@
 // src/pages/ProfessorsPage.tsx
 import { useState, useEffect } from 'react';
-import { Plus, X, Mail, Building2, User } from 'lucide-react'; // Mantido o ícone User
+import { Plus, X, Mail, Building2, User } from 'lucide-react';
 import { supabase, Professor } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { Toast } from '../components/ToastNotification';
@@ -23,8 +23,6 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
   const [professors, setProfessors] = useState<Professor[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
-  
-  // Estados de foto e preview removidos
 
   useEffect(() => {
     if (user) {
@@ -40,15 +38,11 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
   const handleCloseForm = () => {
     setShowForm(false);
     setFormData(initialFormState);
-    // Resets de foto removidos
   };
-  
-  // handleFileChange removido
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Lógica de upload de imagem removida
     const { error } = await supabase.from('professors').insert({
       coordinator_id: user!.id,
       full_name: formData.fullName,
@@ -76,6 +70,8 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
     }
   };
 
+  // --- CORREÇÃO AQUI ---
+  // Esta é a função que estava faltando.
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from('professors').delete().eq('id', id);
 
@@ -88,6 +84,7 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
       await loadProfessors();
     }
   };
+  // --- FIM DA CORREÇÃO ---
 
   return (
     <div id="page-professores" className="flex-1 overflow-y-auto p-6">
@@ -116,7 +113,6 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
               </label>
               <div className="flex items-center gap-4">
                 <div className="w-24 h-24 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center overflow-hidden">
-                  {/* Apenas o ícone de placeholder */}
                   <User className="w-12 h-12 text-gray-400" />
                 </div>
                 <button
@@ -128,8 +124,6 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
                 </button>
               </div>
             </div>
-
-            {/* Restante do formulário... */}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -263,5 +257,9 @@ export default function ProfessorsPage({ onShowToast }: ProfessorsPageProps) {
                 </div>
               )}
             </div>
-          ))} 
+          ))}
         </div>
+      </div>
+    </div>
+  );
+}
